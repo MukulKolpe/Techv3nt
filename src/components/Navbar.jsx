@@ -11,34 +11,27 @@ const Navbar = () => {
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
         <nav className="w-full flex py-6 justify-between items-center navbar">
-          <span className={styles.heading3}>
+          <Link to="/" className={styles.heading3}>
             Tech
             <span
               className={`${styles.heading3} text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600`}
             >
               v3nt
             </span>
-          </span>
+          </Link>
           <ul className="list-none sm:flex hidden justify-end items-center flex-1 ">
             <li
-              className={`font-poppins font-normal cursor-pointer text-[16px] mr-5`}
+              className={`font-poppins font-normal text-xl cursor-pointer text-[16px] mr-7`}
             >
-              <Link to="/l1" className="text-white">
-                Link1
+              <Link to="/events" className="text-white">
+                Events
               </Link>
             </li>
             <li
-              className={`font-poppins font-normal cursor-pointer text-[16px] mr-5`}
+              className={`font-poppins font-normal text-xl cursor-pointer text-[16px] mr-7`}
             >
-              <Link to="/l2" className="text-white">
-                Link1
-              </Link>
-            </li>
-            <li
-              className={`font-poppins font-normal cursor-pointer text-[16px] mr-5`}
-            >
-              <Link to="/l3" className="text-white">
-                Link1
+              <Link to="/add-event" className="text-white">
+                Add Events
               </Link>
             </li>
           </ul>
@@ -58,22 +51,15 @@ const Navbar = () => {
                 <li
                   className={`font-poppins font-normal cursor-pointer text-[16px] `}
                 >
-                  <Link to="/l1" className="text-white">
-                    Link1
+                  <Link to="/events" className="text-white">
+                    Events
                   </Link>
                 </li>
                 <li
                   className={`font-poppins font-normal cursor-pointer text-[16px] mt-5`}
                 >
-                  <Link to="/l2" className="text-white">
-                    Link1
-                  </Link>
-                </li>
-                <li
-                  className={`font-poppins font-normal cursor-pointer text-[16px] mt-5`}
-                >
-                  <Link to="/l3" className="text-white">
-                    Link1
+                  <Link to="/add-event" className="text-white">
+                    Add Events
                   </Link>
                 </li>
               </ul>
