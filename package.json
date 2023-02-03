@@ -9,6 +9,8 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@web3auth/modal": "^4.3.2",
+    "@web3auth/torus-wallet-connector-plugin": "^4.3.2",
     "chai": "^4.3.7",
     "ethereum-waffle": "^4.0.9",
     "ethers": "^6.0.0",
@@ -19,9 +21,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,7 +45,17 @@
     ]
   },
   "devDependencies": {
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
     "hardhat": "^2.12.6",
-    "tailwindcss": "^3.2.4"
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "tailwindcss": "^3.2.4",
+    "url": "^0.11.0"
   }
 }
