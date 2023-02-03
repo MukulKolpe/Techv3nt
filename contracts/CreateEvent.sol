@@ -29,7 +29,6 @@ contract CreateEvent {
             location,
             mode,
             createdBy,
-            false,
             date,
             totalRegistration
         );
