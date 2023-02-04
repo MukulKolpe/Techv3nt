@@ -1,0 +1,22 @@
+.submit {
+    background-color: white;
+    color: black;
+}
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+
+    
+}
+.admin-in {
+    color: white;
+}
