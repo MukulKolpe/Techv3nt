@@ -16,13 +16,37 @@ import {
   darkTheme,
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { goerli } from "wagmi/chains";
+import { Chain ,goerli } from 'wagmi/chains';
+
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 
+const fireChain: Chain = {
+  id: 997,
+  name: '5ire',
+  network: '5ire Network',
+  iconUrl: 'https://example.com/icon.svg',
+  iconBackground: '#fff',
+  nativeCurrency: {
+    decimals: 18,
+    name: '5ire',
+    symbol: '5ire',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://chain-node.5ire.network/'],
+    },
+  },
+  blockExplorers: {
+    default: { name: 'FireNetwork', url: 'https://explorer.5ire.network' },
+  },
+  testnet: true,
+};
+
+
 const { chains, provider } = configureChains(
-  [goerli],
+  [goerli , fireChain],
   [
     alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
     publicProvider(),
