@@ -1,13 +1,63 @@
-import React from "react";
+import {React,useState,useEffect} from "react";
+import eventsabi from "../utils/eventsabi.json";
+import { ethers } from "ethers";
 
-const EventCard = ({
-  event_name,
-  event_mode,
-  event_description,
-  event_location,
-  event_image,
-  event_date,
-}) => {
+const EventCard = ({indivisualevent}) => {
+   const[event_image,setEvent_image] = useState("");
+    const[event_name,setEvent_name] = useState("");
+    const[event_description,setEvent_description] = useState("");
+    const[event_date,setEvent_date] = useState("");
+    const[event_location,setEvent_location] = useState("");
+    const[event_mode,setEvent_mode] = useState("");
+
+    useEffect(() => {
+      const getEventDetails = async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner()
+      const contract = new ethers.Contract(
+          indivisualevent,
+          eventsabi,
+          signer
+      );
+      contract.name().then((result) => {
+        setEvent_name(result)
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      contract.description().then((result) => {
+        setEvent_description(result)
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      contract.imageURL().then((result) => {
+        setEvent_image(result)
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      contract.location().then((result) => {
+        setEvent_location(result)
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      contract.mode().then((result) => {
+        setEvent_mode(result)
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      contract.date().then((result) => {
+        setEvent_date(result)
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+
+    getEventDetails();
+    },[])
   return (
     <div
       className="sm:w-[288px] w-full rounded-[15px] bg-[#1c1c24] cursor-pointer"
