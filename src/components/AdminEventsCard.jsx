@@ -1,6 +1,7 @@
 import {React,useState,useEffect} from "react";
 import eventsabi from "../utils/eventsabi.json";
 import { ethers } from "ethers";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 export default function AdminEventsCard({indivisualevent}) {
     const[event_image,setEvent_image] = useState("");
@@ -65,6 +66,21 @@ export default function AdminEventsCard({indivisualevent}) {
 
     getEventDetails();
     },[])
+
+    const ApproveEvents = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner()
+      const accounts = await provider.listAccounts();
+      const contract = new ethers.Contract(
+        indivisualevent,
+        eventsabi,
+        signer
+      );
+
+      const tx = contract.verifyEvent(true,accounts[0])
+      console.log(tx);
+      
+    }
   return (
     <div>{
       !event_isVerified && (
@@ -116,13 +132,21 @@ export default function AdminEventsCard({indivisualevent}) {
         </div>
 
         <div className="flex items-center mt-[20px] gap-[12px]">
-          <div className="w-[10px] h-[10px] rounded-full flex justify-center items-center bg-[#dddde3]"></div>
-          <p className="flex-1 font-epilogue font-normal text-[12px] text-[#808191] truncate">
-            <span className="text-[#b2b3bd]">{event_mode}</span>
-          </p>
-        </div>
-      </div>
-    </div>
+              <div className="w-[10px] h-[10px] rounded-full flex justify-center items-center bg-[#dddde3]"></div>
+              <p className="flex-1 font-epilogue font-normal text-[12px] text-[#808191] truncate">
+                <span className="text-[#b2b3bd]">{event_mode}</span>
+              </p>
+              <p>
+                <button
+                  className="text-[#b2b3bd]"
+                  onClick={() => ApproveEvents()}
+                >
+                  <TaskAltIcon /> Approve
+                </button>
+              </p>
+            </div>
+            </div>
+            </div>
       )
     }</div>
   )
