@@ -26,7 +26,7 @@ const Events = () => {
     getEvents();
   },[])
   return (
-    <div className="flex flex-wrap gap-3 m-2">
+    <div className="flex flex-wrap gap-8 m-2 items-center justify-center">
     {events.map((item,index) => (
       <EventCard
         indivisualevent = {item}
