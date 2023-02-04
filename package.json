@@ -10,6 +10,8 @@
     "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@openzeppelin/contracts": "^4.8.1",
+    "@pushprotocol/restapi": "0.2.1",
+    "@pushprotocol/uiweb": "0.2.3",
     "@rainbow-me/rainbowkit": "^0.8.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -23,6 +25,7 @@
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.1",
+    "styled-components": "^5.3.6",
     "wagmi": "^0.11.4",
     "web-vitals": "^2.1.4"
   },
