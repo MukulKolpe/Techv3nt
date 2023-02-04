@@ -26,7 +26,7 @@ const fireChain: Chain = {
   id: 997,
   name: '5ire',
   network: '5ire Network',
-  iconUrl: 'https://example.com/icon.svg',
+  iconUrl: 'https://5ire.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F844afe5f-3320-4342-8de3-3a3f72b47e5c%2FYqPdVlSA_400x400.jpeg?table=block&id=3b0c51d9-c1e3-46b7-8722-597f68dd6167&spaceId=3b3e9e83-94fd-4ad6-a9a2-f0376069eab0&width=250&userId=&cache=v2',
   iconBackground: '#fff',
   nativeCurrency: {
     decimals: 18,
