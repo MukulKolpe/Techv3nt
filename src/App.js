@@ -52,6 +52,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route element={<Home />} path="/" />
+              <Route element={<Profile />} path="/profile" />
               <Route element={<ProtectedRoutes />}>
                 <Route element={<Admin />} path="/admin" />
                 <Route element={<Profile />} path="/profile" />
