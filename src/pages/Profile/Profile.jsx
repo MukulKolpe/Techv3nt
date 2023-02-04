@@ -2,6 +2,11 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import React, { useState } from "react";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
+import userinfoabi from "../../utils/userinfoabi.json"
+import {ethers} from "ethers"
+import {useAccount} from 'wagmi'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,14 +15,43 @@ const Profile = () => {
     user_email: "",
     user_pref_location: "",
   });
+  const {address} =useAccount()
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(form);
+  const notify = () => toast.success('Profile updated created successfully!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
+
+const handleSubmit = async (e) => {
+    e.preventDefault()
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(
+      "0x10fD0cA6329dC52F9892F3CEE22cA9c2c69CAb4d",
+      userinfoabi,
+      signer
+  );
+
+  const tx = await contract.addPerson(
+     form.user_name,
+     form.user_email,
+     form.user_pref_location,
+     address
+  )
+
+  console.log(tx)
+  notify()
+
   };
 
   return (
@@ -69,6 +103,7 @@ const Profile = () => {
                   styles="bg-purple-600"
                 />
               </div>
+              <ToastContainer />
             </form>
           </div>
         </div>
