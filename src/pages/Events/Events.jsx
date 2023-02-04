@@ -3,7 +3,7 @@ import EventCard from "../../components/EventCard";
 
 const Events = () => {
   return (
-    <div className="flex flex-wrap gap-3 m-2">
+    <div className="flex flex-wrap gap-8 m-2 items-center justify-center">
       <EventCard
         event_name="DSA Special"
         event_description="A serious discussion on DSA by Mr.Kayal"

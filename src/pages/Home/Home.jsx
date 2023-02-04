@@ -4,7 +4,7 @@ import Main2 from "../../components/Main2";
 import { styles, layout } from "../../style";
 
 const Home = () => (
-  <div>
+  <div className="flex flex-col items-center justify-center">
     <section id="product" className={`${layout.sectionReverse} p-8`}>
       <div className={layout.sectionImgReverse}>
         <img
@@ -55,7 +55,7 @@ const Home = () => (
         </div>
       </div>
     </section>
-    <div className="m-6">
+    <div className="m-6 w-[85%]">
       <Main2 />
     </div>
   </div>
