@@ -13,6 +13,7 @@ contract Events is Ownable {
     bool public isVerified;
     string public date;
     uint256 public totalRegistration;
+    mapping(address => string) public poap;
 
     address public admin = 0x56f20e89A0CB5097Fa41695E6E15d97e1Aa58092;
 
@@ -42,10 +43,17 @@ contract Events is Ownable {
         _;
     }
 
+
+    function giveAwayPoap(address user,string memory cid) public {
+        poap[user] = cid;
+    }
+
     function verifyEvent(
         bool _status,
-        address _admin
+        address _admin,
+        string memory cid
     ) public onlyAdmin(_admin) {
         isVerified = _status;
+        giveAwayPoap(createdBy,cid);
     }
 }
