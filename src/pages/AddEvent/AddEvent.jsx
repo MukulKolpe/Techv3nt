@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
+import createEventabi from "../../utils/createeventabi.json";
+import { ethers } from "ethers";
+
 
 const AddEvent = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,6 +15,7 @@ const AddEvent = () => {
     event_location: "",
     event_date: "",
     event_image: "",
+    event_registration:0
   });
 
   const handleFormFieldChange = (fieldName, e) => {
@@ -21,6 +25,26 @@ const AddEvent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(form);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const accounts = await provider.listAccounts();
+    console.log(accounts);
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(
+        "0x4ADeED62227e1D8490c10cC6fdF82A51CEd88959",
+        createEventabi,
+        signer
+    );
+    // const tx = await contract.createEvent(
+    //   form.event_name,
+    //   form.event_description,
+    //   form.event_image,
+    //   form.event_location,
+    //   form.event_mode,
+    //   accounts[0],
+    //   form.event_date,
+    //   form.event_registration
+    // )
+  console.log(contract._events(0));
   };
 
   return (
@@ -75,6 +99,13 @@ const AddEvent = () => {
               handleChange={(e) => handleFormFieldChange("event_date", e)}
             />
           </div>
+          <FormField
+            labelName="Add maximum number of participants *"
+            placeholder="Number of participants"
+            inputType="number"
+            value={form.event_registration}
+            handleChange={(e) => handleFormFieldChange("event_registration", e)}
+          />
           <FormField
             labelName="Add event thumbnail *"
             placeholder="Place image URL of your event"
