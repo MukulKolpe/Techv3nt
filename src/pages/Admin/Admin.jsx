@@ -1,6 +1,6 @@
-import React,{ useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./Admin.css";
-import createEventabi from  '../../utils/createeventabi.json';
+import createEventabi from "../../utils/createeventabi.json";
 import { ethers } from "ethers";
 import AdminEventsCard from "../../components/AdminEventsCard";
 
@@ -8,29 +8,27 @@ const Admin = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const [passwd, setPasswd] = useState("");
   const [login, setLogin] = useState(false);
-  const[events,setEvents] = useState([]);
-  
+  const [events, setEvents] = useState([]);
+
   useEffect(() => {
     const getEvents = async () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner()
-    const contract = new ethers.Contract(
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
         "0x4ADeED62227e1D8490c10cC6fdF82A51CEd88959",
         createEventabi,
         signer
-    );
-    const AllEvents = contract.events(10,0);
-     AllEvents.then((result) => {
-        setEvents(result)
+      );
+      const AllEvents = contract.events(10, 0);
+      AllEvents.then((result) => {
+        setEvents(result);
         console.log(result);
-     }).catch((err) => {
+      }).catch((err) => {
         console.log(err);
-     });
-    }
+      });
+    };
     getEvents();
-
-    
-  },[])
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,16 +105,11 @@ const Admin = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-3 m-2">
-    {events.map((item,index) => (
-      <AdminEventsCard
-        indivisualevent = {item}
-        key = {index}
-
-      />
-    ))}
-
-    </div>
+        <div className="flex flex-wrap gap-8 m-2 items-center justify-center h-[85vh]">
+          {events.map((item, index) => (
+            <AdminEventsCard indivisualevent={item} key={index} />
+          ))}
+        </div>
       )}
     </div>
   );
