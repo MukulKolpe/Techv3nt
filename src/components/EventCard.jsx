@@ -118,7 +118,7 @@ const EventCard = ({ indivisualevent }) => {
 
             <div className="flex justify-between flex-wrap mt-[15px] gap-2">
               <div className="flex flex-col">
-                <h4 className="font-epilogue font-semibold text-[14px] text-[#b2b3bd] leading-[22px]">
+                <h4 className="font-epilogue font-semibold text-[15px] text-[#b2b3bd] leading-[22px]">
                   {event_location}
                 </h4>
                 <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
@@ -126,8 +126,8 @@ const EventCard = ({ indivisualevent }) => {
                 </p>
               </div>
               <div className="flex flex-col">
-                <p className="mt-[3px] font-epilogue font-normal text-[15px] leading-[22px] text-[#808191] sm:max-w-[120px] ">
-                  Date: {event_date}
+                <p className="mt-[3px] font-epilogue font-semibold text-[15px] leading-[22px] text-[#b2b3bd] sm:max-w-[120px] ">
+                  {event_date}
                 </p>
               </div>
             </div>
