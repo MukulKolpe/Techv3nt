@@ -94,7 +94,7 @@ export default function AdminEventsCard({indivisualevent}) {
           <h3 className="font-epilogue font-semibold text-[16px] text-white text-left leading-[26px] truncate">
             {event_name}
           </h3>
-          <p className="mt-[5px] font-epilogue font-normal text-[#808191] text-left leading-[18px]">
+          <p className="mt-[5px] truncate font-epilogue font-normal text-[#808191] text-left leading-[18px]">
             {event_description}
           </p>
         </div>
