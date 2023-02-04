@@ -1,11 +1,36 @@
-import React from "react";
+import React,{ useState ,useEffect} from "react";
 import "./Admin.css";
-import { useState } from "react";
+import createEventabi from  '../../utils/createeventabi.json';
+import { ethers } from "ethers";
+import AdminEventsCard from "../../components/AdminEventsCard";
 
 const Admin = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const [passwd, setPasswd] = useState("");
   const [login, setLogin] = useState(false);
+  const[events,setEvents] = useState([]);
+  
+  useEffect(() => {
+    const getEvents = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner()
+    const contract = new ethers.Contract(
+        "0x4ADeED62227e1D8490c10cC6fdF82A51CEd88959",
+        createEventabi,
+        signer
+    );
+    const AllEvents = contract.events(10,0);
+     AllEvents.then((result) => {
+        setEvents(result)
+        console.log(result);
+     }).catch((err) => {
+        console.log(err);
+     });
+    }
+    getEvents();
+
+    
+  },[])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,11 +107,16 @@ const Admin = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-black-gradient-2 h-[85vh] flex items-center justify-center">
-          <span className="font-poppins font-semibold xs:text-[26px] text-[20px] text-white xs:leading-[65.8px] leading-[50.8px]">
-            Welcome back, {walletAddress}
-          </span>
-        </div>
+        <div className="flex flex-wrap gap-3 m-2">
+    {events.map((item,index) => (
+      <AdminEventsCard
+        indivisualevent = {item}
+        key = {index}
+
+      />
+    ))}
+
+    </div>
       )}
     </div>
   );
