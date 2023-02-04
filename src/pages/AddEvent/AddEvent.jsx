@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
 import createEventabi from "../../utils/createeventabi.json";
 import { ethers } from "ethers";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const AddEvent = () => {
@@ -22,6 +23,18 @@ const AddEvent = () => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
 
+  const notify = () => toast.success('Event created successfully!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
+    
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(form);
@@ -34,17 +47,18 @@ const AddEvent = () => {
         createEventabi,
         signer
     );
-    // const tx = await contract.createEvent(
-    //   form.event_name,
-    //   form.event_description,
-    //   form.event_image,
-    //   form.event_location,
-    //   form.event_mode,
-    //   accounts[0],
-    //   form.event_date,
-    //   form.event_registration
-    // )
-  console.log(contract._events(0));
+    const tx = await contract.createEvent(
+      form.event_name,
+      form.event_description,
+      form.event_image,
+      form.event_location,
+      form.event_mode,
+      accounts[0],
+      form.event_date,
+      form.event_registration
+    )
+  console.log(tx);
+  notify()
   };
 
   return (
@@ -119,6 +133,7 @@ const AddEvent = () => {
               title="Add Event"
               styles="bg-[#1dc071]"
             />
+            <ToastContainer />
           </div>
         </form>
       </div>
