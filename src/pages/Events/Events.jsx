@@ -6,6 +6,7 @@ import { ethers } from "ethers";
 
 const Events = () => {
   const[events,setEvents] = useState([]);
+  const [isVerified,setIsVerified] = useState(false);
   useEffect(() => {
     const getEvents = async () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -24,13 +25,19 @@ const Events = () => {
      });
     }
     getEvents();
+
+    
   },[])
+
+
+  
   return (
     <div className="flex flex-wrap gap-8 m-2 items-center justify-center">
     {events.map((item,index) => (
       <EventCard
         indivisualevent = {item}
         key = {index}
+
       />
     ))}
 

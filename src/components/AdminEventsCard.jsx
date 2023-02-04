@@ -2,8 +2,8 @@ import {React,useState,useEffect} from "react";
 import eventsabi from "../utils/eventsabi.json";
 import { ethers } from "ethers";
 
-const EventCard = ({indivisualevent}) => {
-   const[event_image,setEvent_image] = useState("");
+export default function AdminEventsCard({indivisualevent}) {
+    const[event_image,setEvent_image] = useState("");
     const[event_name,setEvent_name] = useState("");
     const[event_description,setEvent_description] = useState("");
     const[event_date,setEvent_date] = useState("");
@@ -67,7 +67,7 @@ const EventCard = ({indivisualevent}) => {
     },[])
   return (
     <div>{
-      event_isVerified && (
+      !event_isVerified && (
         <div
       className="sm:w-[288px] w-full rounded-[15px] bg-[#1c1c24] cursor-pointer"
       onClick={() => {}}
@@ -125,7 +125,5 @@ const EventCard = ({indivisualevent}) => {
     </div>
       )
     }</div>
-  );
-};
-
-export default EventCard;
+  )
+}
