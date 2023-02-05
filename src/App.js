@@ -16,37 +16,38 @@ import {
   darkTheme,
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { Chain ,goerli } from 'wagmi/chains';
+import { Chain, goerli } from "wagmi/chains";
 
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import SuccessPage from "./pages/SuccessPage/SuccessPage";
 
 const fireChain: Chain = {
   id: 997,
-  name: '5ire',
-  network: '5ire Network',
-  iconUrl: 'https://5ire.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F844afe5f-3320-4342-8de3-3a3f72b47e5c%2FYqPdVlSA_400x400.jpeg?table=block&id=3b0c51d9-c1e3-46b7-8722-597f68dd6167&spaceId=3b3e9e83-94fd-4ad6-a9a2-f0376069eab0&width=250&userId=&cache=v2',
-  iconBackground: '#fff',
+  name: "5ire",
+  network: "5ire Network",
+  iconUrl:
+    "https://5ire.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F844afe5f-3320-4342-8de3-3a3f72b47e5c%2FYqPdVlSA_400x400.jpeg?table=block&id=3b0c51d9-c1e3-46b7-8722-597f68dd6167&spaceId=3b3e9e83-94fd-4ad6-a9a2-f0376069eab0&width=250&userId=&cache=v2",
+  iconBackground: "#fff",
   nativeCurrency: {
     decimals: 18,
-    name: '5ire',
-    symbol: '5ire',
+    name: "5ire",
+    symbol: "5ire",
   },
   rpcUrls: {
     default: {
-      http: ['https://chain-node.5ire.network/'],
+      http: ["https://chain-node.5ire.network/"],
     },
   },
   blockExplorers: {
-    default: { name: 'FireNetwork', url: 'https://explorer.5ire.network' },
+    default: { name: "FireNetwork", url: "https://explorer.5ire.network" },
   },
   testnet: true,
 };
 
-
 const { chains, provider } = configureChains(
-  [goerli , fireChain],
+  [goerli, fireChain],
   [
     alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
     publicProvider(),
@@ -82,6 +83,7 @@ function App() {
                 <Route element={<Profile />} path="/profile" />
                 <Route element={<AddEvent />} path="/add-event" />
                 <Route element={<Events />} path="/events" />
+                <Route element={<SuccessPage />} path="/success" />
               </Route>
             </Routes>
             <Footer />

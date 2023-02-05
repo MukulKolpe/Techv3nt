@@ -3,11 +3,12 @@ import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
 import createEventabi from "../../utils/createeventabi.json";
 import { ethers } from "ethers";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router";
 
 const AddEvent = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     event_name: "",
@@ -16,24 +17,24 @@ const AddEvent = () => {
     event_location: "",
     event_date: "",
     event_image: "",
-    event_registration:0
+    event_registration: 0,
   });
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
 
-  const notify = () => toast.success('Event created successfully!', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
+  const notify = () =>
+    toast.success("Event created successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
     });
-    
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,11 +42,11 @@ const AddEvent = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const accounts = await provider.listAccounts();
     console.log(accounts);
-    const signer = provider.getSigner()
+    const signer = provider.getSigner();
     const contract = new ethers.Contract(
-        "0x5c4860e038f037Db43d35a563aD1332427b0e4D6",
-        createEventabi,
-        signer
+      "0x5c4860e038f037Db43d35a563aD1332427b0e4D6",
+      createEventabi,
+      signer
     );
     const tx = await contract.createEvent(
       form.event_name,
@@ -56,9 +57,10 @@ const AddEvent = () => {
       accounts[0],
       form.event_date,
       form.event_registration
-    )
-  console.log(tx);
-  notify()
+    );
+    console.log(tx);
+    notify();
+    navigate("/success");
   };
 
   return (
