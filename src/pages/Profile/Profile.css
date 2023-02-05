@@ -1,0 +1,4 @@
+.location-field {
+    display: flex;
+    flex-direction: row;
+}

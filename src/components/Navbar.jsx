@@ -39,6 +39,13 @@ const Navbar = () => {
                 Add Events
               </Link>
             </li>
+            <li
+              className={`font-poppins font-normal text-xl cursor-pointer text-[16px] mr-7`}
+            >
+              <Link to="/profile" className="text-white">
+                Profile
+              </Link>
+            </li>
             <li>
               {/* <ConnectButton /> */}
               {!isConnected ? (
@@ -83,6 +90,13 @@ const Navbar = () => {
                 >
                   <Link to="/add-event" className="text-white">
                     Add Events
+                  </Link>
+                </li>
+                <li
+                  className={`font-poppins font-normal text-xl cursor-pointer text-[16px] mr-7`}
+                >
+                  <Link to="/profile" className="text-white">
+                    Profile
                   </Link>
                 </li>
                 <li>
