@@ -36,9 +36,7 @@ const Profile = () => {
     if (!lat || !lng) return;
 
     axios
-      .get(
-        `${api_endpoint}lat=${lat}&lon=${lng}&limit=1&appid=58f51208d0239d93162bb6641384d3be`
-      )
+      .get(`${api_endpoint}lat=${lat}&lon=${lng}&limit=1&appid=${API_KEY}`)
       .then((res) => {
         console.log(res.data);
         console.log(res.data[0].name);
