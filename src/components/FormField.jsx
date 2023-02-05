@@ -17,7 +17,6 @@ const FormField = ({
       )}
       {isTextArea ? (
         <textarea
-          required
           value={value}
           onChange={handleChange}
           rows={10}
@@ -26,7 +25,6 @@ const FormField = ({
         />
       ) : (
         <input
-          required
           value={value}
           onChange={handleChange}
           type={inputType}

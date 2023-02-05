@@ -1,12 +1,18 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
-import userinfoabi from "../../utils/userinfoabi.json"
-import {ethers} from "ethers"
-import {useAccount} from 'wagmi'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import userinfoabi from "../../utils/userinfoabi.json";
+import { ethers } from "ethers";
+import { useAccount } from "wagmi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import MyLocationIcon from "@mui/icons-material/MyLocation";
+import "./Profile.css";
+import axios from "axios";
+
+const API_KEY = process.env.REACT_APP_GEO_API_KEY;
+const api_endpoint = `http://api.openweathermap.org/geo/1.0/reverse?`;
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,43 +21,73 @@ const Profile = () => {
     user_email: "",
     user_pref_location: "",
   });
-  const {address} =useAccount()
+  const { address } = useAccount();
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  const [city, setCity] = useState(null);
+  const [state, setState] = useState(null);
+  const [country, setCountry] = useState(null);
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
 
-  const notify = () => toast.success('Profile updated created successfully!', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
+  useEffect(() => {
+    if (!lat || !lng) return;
+
+    axios
+      .get(
+        `${api_endpoint}lat=${lat}&lon=${lng}&limit=1&appid=58f51208d0239d93162bb6641384d3be`
+      )
+      .then((res) => {
+        console.log(res.data);
+        console.log(res.data[0].name);
+        setCity(res.data[0].name);
+        setState(res.data[0].state);
+        setCountry(res.data[0].country);
+      });
+  }, [lat, lng]);
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+      });
+    }
+  };
+
+  const notify = () =>
+    toast.success("Profile updated created successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
     });
 
-const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner()
+    const signer = provider.getSigner();
     const contract = new ethers.Contract(
       "0x10fD0cA6329dC52F9892F3CEE22cA9c2c69CAb4d",
       userinfoabi,
       signer
-  );
+    );
 
-  const tx = await contract.addPerson(
-     form.user_name,
-     form.user_email,
-     form.user_pref_location,
-     address
-  )
+    const tx = await contract.addPerson(
+      form.user_name,
+      form.user_email,
+      form.user_pref_location,
+      address
+    );
 
-  console.log(tx)
-  notify()
-
+    console.log(tx);
+    notify();
   };
 
   return (
@@ -86,16 +122,32 @@ const handleSubmit = async (e) => {
                   handleChange={(e) => handleFormFieldChange("user_email", e)}
                 />
               </div>
+              <div className="location-field">
+                <FormField
+                  labelName="Preferred Location *"
+                  placeholder={
+                    city || state || country
+                      ? `${city}, ${state}, ${country}`
+                      : "Enter your preferred location"
+                  }
+                  inputType="text"
+                  value={form.user_pref_location}
+                  handleChange={(e) =>
+                    handleFormFieldChange("user_pref_location", e)
+                  }
+                />
+                <button onClick={() => getLocation()}>
+                  <MyLocationIcon
+                    fontSize="large"
+                    style={{
+                      color: "white",
+                      marginTop: "35px",
+                      marginLeft: "15px",
+                    }}
+                  />
+                </button>
+              </div>
 
-              <FormField
-                labelName="Preferred Location *"
-                placeholder="Your Preferred Location"
-                inputType="text"
-                value={form.user_pref_location}
-                handleChange={(e) =>
-                  handleFormFieldChange("user_pref_location", e)
-                }
-              />
               <div className="flex justify-center items-center mt-[20px]">
                 <CustomButton
                   btnType="submit"
