@@ -46,6 +46,32 @@ const Profile = () => {
       });
   }, [lat, lng]);
 
+  useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner()
+      const contract = new ethers.Contract(
+        "0x0Df39c36E8e9b462F2672498054E129416a7093D",
+        userinfoabi,
+        signer
+    );
+    const username = contract.getUsernameByWalletAddress(address);
+    username.then((result)=>{
+      console.log(result);
+      setForm({user_name : result});
+      const useremail = contract.getEmailByWalletAddress(address);
+      useremail.then((result2)=>{
+        console.log(result2);
+        setForm({user_email : result2});
+        const location = contract.getLocationByWalletAddress(address);
+        location.then((result3)=>{
+          console.log(result3);
+          setForm({user_pref_location : result3});
+        });
+      });
+    });
+    // console.log(contract.getUsernameByWalletAddress(address));
+  }, [])
+
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -72,7 +98,7 @@ const Profile = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(
-      "0x10fD0cA6329dC52F9892F3CEE22cA9c2c69CAb4d",
+      "0x0Df39c36E8e9b462F2672498054E129416a7093D",
       userinfoabi,
       signer
     );
